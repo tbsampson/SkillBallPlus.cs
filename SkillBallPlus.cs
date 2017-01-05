@@ -1,4 +1,4 @@
-/* SkillBallPlus.cs v2.2 (Complete rewrite) by Ixtabay
+/* SkillBallPlus.cs v2.3 (Complete rewrite) by Ixtabay
 Based on original SkillBall from Romanthebrain
 Updates by Hawthornetr, ntony, JamzeMcC, MrNice, Ixtabay, and others since 2010
 */
@@ -17,7 +17,24 @@ namespace Server
 			public static int skillsToBoost = 5;  // How many skills to boost
             private SkillBallPlus  m_SkillBallPlus;
             public static double boostValue = 85;  // How high to boost each selected skill
-        private static Item MakeNewbie( Item item )
+			public string expansion = CurrentExpansion.Expansion.ToString();
+			public string race;
+		
+		private string GetRace(Mobile mob)
+        {
+			if	(mob.Body == 0x190 || mob.Body == 0x191)
+				race = "Human";
+			else if (mob.Body == 0x25D || mob.Body == 0x25E)
+				race = "Elf";
+			else if (mob.Body == 0x29A || mob.Body == 0x29B)
+				race = "Gargoyle";
+			else 
+				race = "Unknown";
+			return race;
+		}
+
+
+			private static Item MakeNewbie( Item item )
         {
             if ( !Core.AOS )
                 item.LootType = LootType.Newbied;
@@ -116,8 +133,12 @@ namespace Server
             this.AddCheck(65, 365, 2510, 2511, false, (int)SkillName.Parry);
             this.AddCheck(65, 385, 2510, 2511, false, (int)SkillName.Swords);
             this.AddCheck(65, 405, 2510, 2511, false, (int)SkillName.Tactics);
-            this.AddCheck(65, 425, 2510, 2511, false, (int)SkillName.Throwing);
-            this.AddCheck(65, 445, 2510, 2511, false, (int)SkillName.Wrestling);
+            
+			if ((expansion!="None") || ( expansion!="T2A") || (expansion!="UOR") || (expansion!="UOTD") || (expansion!="LBR") || (expansion!="AOS") || (expansion!="SE") || (expansion!="ML"))
+			  if (race=="Gargoyle")
+				  this.AddCheck(65, 425, 2510, 2511, false, (int)SkillName.Throwing);
+            			
+			this.AddCheck(65, 445, 2510, 2511, false, (int)SkillName.Wrestling);
             this.AddHtml(85, 65, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Miscellaneous</BASEFONT>", (bool)false, (bool)false); // -----------------------  Miscellaneous
             this.AddHtml(85, 85, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Arms Lore</BASEFONT>", (bool)false, (bool)false);         
             this.AddHtml(85, 105, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Begging</BASEFONT>", (bool)false, (bool)false);   
@@ -136,7 +157,7 @@ namespace Server
             this.AddHtml(85, 365, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Parrying</BASEFONT>", (bool)false, (bool)false);    
             this.AddHtml(85, 385, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Swordfighting</BASEFONT>", (bool)false, (bool)false);
             this.AddHtml(85, 405, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Tactics</BASEFONT>", (bool)false, (bool)false);			
-            this.AddHtml(85, 425, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Throwing</BASEFONT>", (bool)false, (bool)false);            
+            this.AddHtml(85, 425, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Throwing</BASEFONT>", (bool)false, (bool)false);
             this.AddHtml(85, 445, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Wrestling</BASEFONT>", (bool)false, (bool)false);            			
 	// **************************************************************************************************************** Column 2
             this.AddImage(239, 68, 2086); // ------------------------------------------------------------  Trade Skills
@@ -151,17 +172,33 @@ namespace Server
             this.AddCheck(240, 245, 2510, 2511, false, (int)SkillName.Tailoring);
             this.AddCheck(240, 265, 2510, 2511, false, (int)SkillName.Tinkering);
             this.AddImage(239, 288, 2086); // ------------------------------------------------------------  Magic
+			if ((expansion!="None") || ( expansion!="T2A") || (expansion!="UOR") || (expansion!="UOTD") || (expansion!="LBR") || (expansion!="AOS"))
 			this.AddCheck(240, 305, 2510, 2511, false, (int)SkillName.Bushido);
+
+			if ((expansion!="None") || ( expansion!="T2A") || (expansion!="UOR") || (expansion!="UOTD") || (expansion!="LBR"))
             this.AddCheck(240, 325, 2510, 2511, false, (int)SkillName.Chivalry);
-            this.AddCheck(240, 345, 2510, 2511, false, (int)SkillName.EvalInt);
+
+			this.AddCheck(240, 345, 2510, 2511, false, (int)SkillName.EvalInt);
+
+			if ((expansion!="None") || ( expansion!="T2A") || (expansion!="UOR") || (expansion!="UOTD") || (expansion!="LBR") || (expansion!="AOS") || (expansion!="SE") || (expansion!="ML"))
             this.AddCheck(240, 365, 2510, 2511, false, (int)SkillName.Imbuing);
+		
             this.AddCheck(240, 385, 2510, 2511, false, (int)SkillName.Magery);
             this.AddCheck(240, 405, 2510, 2511, false, (int)SkillName.Meditation);			
+
+			if ((expansion!="None") || ( expansion!="T2A") || (expansion!="UOR") || (expansion!="UOTD") || (expansion!="LBR") || (expansion!="AOS") || (expansion!="SE") || (expansion!="ML"))
             this.AddCheck(240, 425, 2510, 2511, false, (int)SkillName.Mysticism);						
-            this.AddCheck(240, 445, 2510, 2511, false, (int)SkillName.Necromancy);									
-            this.AddCheck(240, 465, 2510, 2511, false, (int)SkillName.Ninjitsu);												
+		
+			if ((expansion!="None") || ( expansion!="T2A") || (expansion!="UOR") || (expansion!="UOTD") || (expansion!="LBR"))
+			this.AddCheck(240, 445, 2510, 2511, false, (int)SkillName.Necromancy);									
+
+			if ((expansion!="None") || ( expansion!="T2A") || (expansion!="UOR") || (expansion!="UOTD") || (expansion!="LBR") || (expansion!="AOS"))
+			this.AddCheck(240, 465, 2510, 2511, false, (int)SkillName.Ninjitsu);												
             this.AddCheck(240, 485, 2510, 2511, false, (int)SkillName.MagicResist);															
-            this.AddCheck(240, 505, 2510, 2511, false, (int)SkillName.Spellweaving);																		
+
+			if ((expansion!="None") || ( expansion!="T2A") || (expansion!="UOR") || (expansion!="UOTD") || (expansion!="LBR") || (expansion!="AOS") || (expansion!="SE"))			
+            this.AddCheck(240, 505, 2510, 2511, false, (int)SkillName.Spellweaving);
+		
             this.AddCheck(240, 525, 2510, 2511, false, (int)SkillName.SpiritSpeak);																					
             this.AddHtml(259, 65, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Trade Skills</BASEFONT>", (bool)false, (bool)false); // -----------------------  Trade Skills
             this.AddHtml(260, 85, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Alchemy</BASEFONT>", (bool)false, (bool)false);         
@@ -182,7 +219,7 @@ namespace Server
             this.AddHtml(260, 385, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Magery</BASEFONT>", (bool)false, (bool)false);
             this.AddHtml(260, 405, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Meditation</BASEFONT>", (bool)false, (bool)false);
             this.AddHtml(260, 425, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Mysticism</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 445, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Necromancy</BASEFONT>", (bool)false, (bool)false);
+			this.AddHtml(260, 445, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Necromancy</BASEFONT>", (bool)false, (bool)false);
             this.AddHtml(260, 465, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Ninjitsu</BASEFONT>", (bool)false, (bool)false);
             this.AddHtml(260, 485, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Resisting Spells</BASEFONT>", (bool)false, (bool)false);
             this.AddHtml(260, 505, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Spellweaving</BASEFONT>", (bool)false, (bool)false);
@@ -816,14 +853,37 @@ namespace Server
        
     }
  
-    public class SkillBallPlus : Item
+     public class SkillBallPlus : Item
     {
-        [Constructable]
+	      private int m_skillsToBoost = Server.SkillPickGump.skillsToBoost; // Default number of skills to boost
+	      private double m_boostValue = Server.SkillPickGump.boostValue; // Default level skills will be boosted to		  
+		  private string m_BaseName = " Skill Booster with Items";
+
+		  [CommandProperty( AccessLevel.GameMaster )] 
+		  public int skillsToBoost
+		  {
+			get { return m_skillsToBoost; }
+			set { 
+			  m_skillsToBoost = value; 
+			  this.Name = Convert.ToString(m_skillsToBoost) + m_BaseName; 
+				}
+		  }	
+		  [CommandProperty( AccessLevel.GameMaster )] 
+		  public double boostValue
+		  {
+			get { return m_boostValue; }
+			set { 
+			  m_boostValue = value; 
+			  this.Name = Convert.ToString(m_boostValue) + "/" + m_BaseName; 
+			}
+		  }
+		  
+	[Constructable]
         public SkillBallPlus() :  base( 0xE73 )
         {
             Weight = 1.0;
             Hue = 1287;
-            Name = ""+ Server.SkillPickGump.skillsToBoost + "/" + Server.SkillPickGump.boostValue + " Skill Booster with Items";
+            Name = ""+ m_skillsToBoost + "/" + m_boostValue + " Skill Booster with Items";
             Movable =  false;
         }
         public override void OnDoubleClick( Mobile m )
