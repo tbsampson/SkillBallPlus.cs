@@ -18,3 +18,5 @@ These values can also be set in game by GM
 By default, SkillBallPlus is locked down, so players cannot trade .
 
 Check this thread for support and information:
+
+https://www.servuo.com/archive/skillballplus-cs.773/
