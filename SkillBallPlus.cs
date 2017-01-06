@@ -41,7 +41,7 @@ namespace Server
  
             return item;
         }
-        public SkillPickGump( SkillBallPlus ball )
+        public SkillPickGump( SkillBallPlus ball, Mobile player )
             : base( 0, 0 )
         {
             this.Closable=true;
@@ -125,8 +125,11 @@ namespace Server
             this.AddCheck(65, 205, 2510, 2511, false, (int)SkillName.TasteID);
             this.AddImage(64, 228, 2086); // ------------------------------------------------------------ Combat
             this.AddCheck(65, 245, 2510, 2511, false, (int)SkillName.Anatomy);
-            this.AddCheck(65, 265, 2510, 2511, false, (int)SkillName.Archery);
-            this.AddCheck(65, 285, 2510, 2511, false, (int)SkillName.Fencing);
+            
+			if (player.Race != Race.Gargoyle)
+				this.AddCheck(65, 265, 2510, 2511, false, (int)SkillName.Archery);
+            
+			this.AddCheck(65, 285, 2510, 2511, false, (int)SkillName.Fencing);
             this.AddCheck(65, 305, 2510, 2511, false, (int)SkillName.Focus);
             this.AddCheck(65, 325, 2510, 2511, false, (int)SkillName.Healing);
             this.AddCheck(65, 345, 2510, 2511, false, (int)SkillName.Macing);
@@ -135,7 +138,7 @@ namespace Server
             this.AddCheck(65, 405, 2510, 2511, false, (int)SkillName.Tactics);
             
 			if ((expansion!="None") || ( expansion!="T2A") || (expansion!="UOR") || (expansion!="UOTD") || (expansion!="LBR") || (expansion!="AOS") || (expansion!="SE") || (expansion!="ML"))
-			  if (race=="Gargoyle")
+			  if (player.Race == Race.Gargoyle)
 				  this.AddCheck(65, 425, 2510, 2511, false, (int)SkillName.Throwing);
             			
 			this.AddCheck(65, 445, 2510, 2511, false, (int)SkillName.Wrestling);
@@ -208,7 +211,7 @@ namespace Server
             this.AddHtml(260, 165, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Cooking</BASEFONT>", (bool)false, (bool)false);          
             this.AddHtml(260, 185, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Inscription</BASEFONT>", (bool)false, (bool)false);         
             this.AddHtml(260, 205, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Lumberjacking</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 225, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Mining</BASEFONT>", (bool)false, (bool)false); // Comment if before Stygian Abyss Expansion
+            this.AddHtml(260, 225, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Mining</BASEFONT>", (bool)false, (bool)false);
             this.AddHtml(260, 245, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Tailoring</BASEFONT>", (bool)false, (bool)false);       
             this.AddHtml(259, 265, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Tinkering</BASEFONT>", (bool)false, (bool)false); 
             this.AddHtml(260, 285, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Magic</BASEFONT>", (bool)false, (bool)false); // -----------------------  Magic
@@ -248,7 +251,7 @@ namespace Server
             this.AddCheck(430, 465, 2510, 2511, false, (int)SkillName.Provocation);
             this.AddHtml(450, 65, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Wilderness</BASEFONT>", (bool)false, (bool)false); // -----------------------  Wilderness
             this.AddHtml(450, 85, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Animal Lore</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(450, 105, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Animal Taming</BASEFONT>", (bool)false, (bool)false);     // Comment if before Stygian Abyss Expansion
+            this.AddHtml(450, 105, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Animal Taming</BASEFONT>", (bool)false, (bool)false);
             this.AddHtml(450, 125, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Fishing</BASEFONT>", (bool)false, (bool)false);         
             this.AddHtml(450, 145, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Herding</BASEFONT>", (bool)false, (bool)false);   
             this.AddHtml(450, 165, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Tracking</BASEFONT>", (bool)false, (bool)false); 
@@ -291,13 +294,13 @@ namespace Server
                    
                 if ( info.Switches.Length < skillsToBoost )
                     {
-                        m.SendGump( new SkillPickGump(m_SkillBallPlus) );
+                        m.SendGump( new SkillPickGump(m_SkillBallPlus, m) );
                         m.SendMessage( 0, "Please try again.  You must pick {0} more skills for a total of "+ skillsToBoost +".", skillsToBoost - info.Switches.Length );
                         break;
                     }
                     else if ( info.Switches.Length > skillsToBoost )
                     {
-                        m.SendGump( new SkillPickGump(m_SkillBallPlus) );
+                        m.SendGump( new SkillPickGump(m_SkillBallPlus, m) );
                         m.SendMessage( 0, "Please try again.  You choose {0} more skills than the "+ skillsToBoost +" allowed.", info.Switches.Length - skillsToBoost);
                         break;
                                 }
@@ -893,7 +896,7 @@ namespace Server
             {
                 m.SendMessage("Please choose " + Server.SkillPickGump.skillsToBoost + " skills to set to " + Server.SkillPickGump.boostValue + ".");
                 m.CloseGump(typeof(SkillPickGump));
-                m.SendGump(new SkillPickGump(this));
+                m.SendGump(new SkillPickGump(this, m));
             }
             else
                 m.SendMessage(" This must be in your backpack to function.");
