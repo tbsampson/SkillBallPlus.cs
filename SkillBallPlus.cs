@@ -1,4 +1,4 @@
-/* SkillBallPlus.cs v2.3 (Complete rewrite) by Ixtabay
+/* SkillBallPlus.cs v2.3.1 (Complete rewrite) by Ixtabay
 Based on original SkillBall from Romanthebrain
 Updates by Hawthornetr, ntony, JamzeMcC, MrNice, Ixtabay, and others since 2010
 */
@@ -18,7 +18,11 @@ namespace Server
             private SkillBallPlus  m_SkillBallPlus;
             public static double boostValue = 85;  // How high to boost each selected skill
 			public string expansion = CurrentExpansion.Expansion.ToString();
-			public string race;
+			public string blueSix = "<BASEFONT SIZE=6 FACE=1 COLOR=#001052>";
+			public string blueEight = "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>";
+			public string blueTen = "<BASEFONT SIZE=10 FACE=1 COLOR=#001052>";			
+			public string brownEight = "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>";
+			public string endFont = "</BASEFONT>";
 
 			private static Item MakeNewbie( Item item )
         {
@@ -34,14 +38,14 @@ namespace Server
             this.Disposable=true;
             this.Dragable=true;
             this.Resizable=false;
-                        m_SkillBallPlus = ball;
-						
+            m_SkillBallPlus = ball;
+					
 			
             this.AddPage(0);
 			// ----------------- y, x, y, x, id
             this.AddBackground(39, 33, 555, 545, 9380);
-            this.AddHtml(67, 41, 1153, 20, "<BASEFONT SIZE=10 FACE=1 COLOR=#001052>Skillball Plus!</BASEFONT>", (bool)false, (bool)false);
-			this.AddHtml(67, 555, 1153, 20, "<BASEFONT SIZE=10 FACE=1 COLOR=#001052>Please select " + skillsToBoost + " skills to raise to " + boostValue + "</BASEFONT>", (bool)false, (bool)false);
+            this.AddHtml(67, 41, 1153, 20,  blueTen + "Skillball Plus!" + endFont, (bool)false, (bool)false);
+			this.AddHtml(67, 555, 1153, 20,  blueTen + "Please select " + skillsToBoost + " skills to raise to " + boostValue + "" + endFont, (bool)false, (bool)false);
             this.AddButton(420, 555, 2071, 2072, (int)Buttons.Close, GumpButtonType.Reply, 0);
             this.AddButton(490, 555, 2311, 2312, (int)Buttons.FinishButton, GumpButtonType.Reply, 0);
 						
@@ -90,14 +94,14 @@ namespace Server
 			AddImage(552, 393, 2101);
 
 			this.AddImage(65, 480, 9811); // Image of backpack
-			this.AddHtml(122, 478, 1154, 20,"<BASEFONT SIZE=6 FACE=2 COLOR=#001052>Items added to</BASEFONT>", (bool)false, (bool)false);
-			this.AddHtml(122, 491, 1154, 20,"<BASEFONT SIZE=6 FACE=2 COLOR=#001052>backpack based</BASEFONT>", (bool)false, (bool)false);
-			this.AddHtml(122, 504, 1154, 20,"<BASEFONT SIZE=6 FACE=2 COLOR=#001052>based on your</BASEFONT>", (bool)false, (bool)false);
-			this.AddHtml(122, 517, 1154, 20,"<BASEFONT SIZE=6 FACE=2 COLOR=#001052>selected skills!</BASEFONT>", (bool)false, (bool)false);
+			this.AddHtml(122, 478, 1154, 20, blueSix + "Items added to" + endFont, (bool)false, (bool)false);
+			this.AddHtml(122, 491, 1154, 20, blueSix + "backpack based" + endFont, (bool)false, (bool)false);
+			this.AddHtml(122, 504, 1154, 20, blueSix + "based on your" + endFont, (bool)false, (bool)false);
+			this.AddHtml(122, 517, 1154, 20, blueSix + "selected skills!" + endFont, (bool)false, (bool)false);
 	
 			// this.AddImage(400, 495, 52); // Signature line image
-			this.AddHtml(422, 501, 1154, 20,"<BASEFONT SIZE=10 FACE=2 COLOR=#001052>Choose Carefully</BASEFONT>", (bool)false, (bool)false);			
-			this.AddHtml(410, 518, 1154, 20,"<BASEFONT SIZE=10 FACE=2 COLOR=#001052>This cannot be undone!</BASEFONT>", (bool)false, (bool)false);
+			this.AddHtml(422, 501, 1154, 20, blueTen + "Choose Carefully," + endFont, (bool)false, (bool)false);			
+			this.AddHtml(410, 518, 1154, 20, blueTen + "this cannot be undone!" + endFont, (bool)false, (bool)false);
 			
             this.AddPage(1);
     //**************************************************************************************************************** Column 1
@@ -128,26 +132,26 @@ namespace Server
 				  this.AddCheck(65, 425, 2510, 2511, false, (int)SkillName.Throwing);
             			
 			this.AddCheck(65, 445, 2510, 2511, false, (int)SkillName.Wrestling);
-            this.AddHtml(85, 65, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Miscellaneous</BASEFONT>", (bool)false, (bool)false); // -----------------------  Miscellaneous
-            this.AddHtml(85, 85, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Arms Lore</BASEFONT>", (bool)false, (bool)false);         
-            this.AddHtml(85, 105, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Begging</BASEFONT>", (bool)false, (bool)false);   
-            this.AddHtml(85, 125, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Camping</BASEFONT>", (bool)false, (bool)false);         
-            this.AddHtml(85, 145, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Cartography</BASEFONT>", (bool)false, (bool)false);        
-            this.AddHtml(85, 165, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Forensic Evaluation</BASEFONT>", (bool)false, (bool)false);    
-            this.AddHtml(85, 185, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Item Identification</BASEFONT>", (bool)false, (bool)false);           
-            this.AddHtml(85, 205, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Taste Identification</BASEFONT>", (bool)false, (bool)false);      
-            this.AddHtml(85, 225, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Combat</BASEFONT>", (bool)false, (bool)false); // ----------------------- Combat       
-            this.AddHtml(85, 245, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Anatomy</BASEFONT>", (bool)false, (bool)false);     
-            this.AddHtml(85, 265, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Archery</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(85, 285, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Fencing</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(85, 305, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Focus</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(85, 325, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Healing</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(85, 345, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Mace Fighting</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(85, 365, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Parrying</BASEFONT>", (bool)false, (bool)false);    
-            this.AddHtml(85, 385, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Swordfighting</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(85, 405, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Tactics</BASEFONT>", (bool)false, (bool)false);			
-            this.AddHtml(85, 425, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Throwing</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(85, 445, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Wrestling</BASEFONT>", (bool)false, (bool)false);            			
+            this.AddHtml(85, 65, 2314, 20,  blueEight + "Miscellaneous" + endFont, (bool)false, (bool)false); // -----------------------  Miscellaneous
+            this.AddHtml(85, 85, 2314, 20,  brownEight + "Arms Lore" + endFont, (bool)false, (bool)false);         
+            this.AddHtml(85, 105, 2314, 20,  brownEight + "Begging" + endFont, (bool)false, (bool)false);   
+            this.AddHtml(85, 125, 2314, 20,  brownEight + "Camping" + endFont, (bool)false, (bool)false);         
+            this.AddHtml(85, 145, 2314, 20,  brownEight + "Cartography" + endFont, (bool)false, (bool)false);        
+            this.AddHtml(85, 165, 2314, 20,  brownEight + "Forensic Evaluation" + endFont, (bool)false, (bool)false);    
+            this.AddHtml(85, 185, 2314, 20,  brownEight + "Item Identification" + endFont, (bool)false, (bool)false);           
+            this.AddHtml(85, 205, 2314, 20,  brownEight + "Taste Identification" + endFont, (bool)false, (bool)false);      
+            this.AddHtml(85, 225, 2314, 20,  blueEight + "Combat" + endFont, (bool)false, (bool)false); // ----------------------- Combat       
+            this.AddHtml(85, 245, 2314, 20,  brownEight + "Anatomy" + endFont, (bool)false, (bool)false);     
+            this.AddHtml(85, 265, 2314, 20,  brownEight + "Archery" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(85, 285, 2314, 20,  brownEight + "Fencing" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(85, 305, 2314, 20,  brownEight + "Focus" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(85, 325, 2314, 20,  brownEight + "Healing" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(85, 345, 2314, 20,  brownEight + "Mace Fighting" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(85, 365, 2314, 20,  brownEight + "Parrying" + endFont, (bool)false, (bool)false);    
+            this.AddHtml(85, 385, 2314, 20,  brownEight + "Swordfighting" + endFont, (bool)false, (bool)false);
+            this.AddHtml(85, 405, 2314, 20,  brownEight + "Tactics" + endFont, (bool)false, (bool)false);			
+            this.AddHtml(85, 425, 2314, 20,  brownEight + "Throwing" + endFont, (bool)false, (bool)false);
+            this.AddHtml(85, 445, 2314, 20,  brownEight + "Wrestling" + endFont, (bool)false, (bool)false);            			
 	// **************************************************************************************************************** Column 2
             this.AddImage(239, 68, 2086); // ------------------------------------------------------------  Trade Skills
             this.AddCheck(240, 85, 2510, 2511, false, (int)SkillName.Alchemy);
@@ -189,30 +193,30 @@ namespace Server
             this.AddCheck(240, 505, 2510, 2511, false, (int)SkillName.Spellweaving);
 		
             this.AddCheck(240, 525, 2510, 2511, false, (int)SkillName.SpiritSpeak);																					
-            this.AddHtml(259, 65, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Trade Skills</BASEFONT>", (bool)false, (bool)false); // -----------------------  Trade Skills
-            this.AddHtml(260, 85, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Alchemy</BASEFONT>", (bool)false, (bool)false);         
-            this.AddHtml(260, 105, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Blacksmithy</BASEFONT>", (bool)false, (bool)false);   
-            this.AddHtml(260, 125, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Bowcraft/Fletching</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(260, 145, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Carpentry</BASEFONT>", (bool)false, (bool)false);     
-            this.AddHtml(260, 165, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Cooking</BASEFONT>", (bool)false, (bool)false);          
-            this.AddHtml(260, 185, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Inscription</BASEFONT>", (bool)false, (bool)false);         
-            this.AddHtml(260, 205, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Lumberjacking</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 225, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Mining</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 245, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Tailoring</BASEFONT>", (bool)false, (bool)false);       
-            this.AddHtml(259, 265, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Tinkering</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(260, 285, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Magic</BASEFONT>", (bool)false, (bool)false); // -----------------------  Magic
-            this.AddHtml(260, 305, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Bushido</BASEFONT>", (bool)false, (bool)false);        
-            this.AddHtml(260, 325, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Chivalry</BASEFONT>", (bool)false, (bool)false);   
-            this.AddHtml(260, 345, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Evaluating Intelligence</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(260, 365, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Imbuing</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(260, 385, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Magery</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 405, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Meditation</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 425, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Mysticism</BASEFONT>", (bool)false, (bool)false);
-			this.AddHtml(260, 445, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Necromancy</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 465, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Ninjitsu</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 485, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Resisting Spells</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 505, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Spellweaving</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(260, 525, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Spirit Speak</BASEFONT>", (bool)false, (bool)false);			
+            this.AddHtml(259, 65, 2314, 20,  blueEight + "Trade Skills" + endFont, (bool)false, (bool)false); // -----------------------  Trade Skills
+            this.AddHtml(260, 85, 2314, 20,  brownEight + "Alchemy" + endFont, (bool)false, (bool)false);         
+            this.AddHtml(260, 105, 2314, 20,  brownEight + "Blacksmithy" + endFont, (bool)false, (bool)false);   
+            this.AddHtml(260, 125, 2314, 20,  brownEight + "Bowcraft/Fletching" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(260, 145, 2314, 20,  brownEight + "Carpentry" + endFont, (bool)false, (bool)false);     
+            this.AddHtml(260, 165, 2314, 20,  brownEight + "Cooking" + endFont, (bool)false, (bool)false);          
+            this.AddHtml(260, 185, 2314, 20,  brownEight + "Inscription" + endFont, (bool)false, (bool)false);         
+            this.AddHtml(260, 205, 2314, 20,  brownEight + "Lumberjacking" + endFont, (bool)false, (bool)false);
+            this.AddHtml(260, 225, 2314, 20,  brownEight + "Mining" + endFont, (bool)false, (bool)false);
+            this.AddHtml(260, 245, 2314, 20,  brownEight + "Tailoring" + endFont, (bool)false, (bool)false);       
+            this.AddHtml(259, 265, 2314, 20,  brownEight + "Tinkering" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(260, 285, 2314, 20,  blueEight + "Magic" + endFont, (bool)false, (bool)false); // -----------------------  Magic
+            this.AddHtml(260, 305, 2314, 20,  brownEight + "Bushido" + endFont, (bool)false, (bool)false);        
+            this.AddHtml(260, 325, 2314, 20,  brownEight + "Chivalry" + endFont, (bool)false, (bool)false);   
+            this.AddHtml(260, 345, 2314, 20,  brownEight + "Evaluating Intelligence" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(260, 365, 2314, 20,  brownEight + "Imbuing" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(260, 385, 2314, 20,  brownEight + "Magery" + endFont, (bool)false, (bool)false);
+            this.AddHtml(260, 405, 2314, 20,  brownEight + "Meditation" + endFont, (bool)false, (bool)false);
+            this.AddHtml(260, 425, 2314, 20,  brownEight + "Mysticism" + endFont, (bool)false, (bool)false);
+			this.AddHtml(260, 445, 2314, 20,  brownEight + "Necromancy" + endFont, (bool)false, (bool)false);
+            this.AddHtml(260, 465, 2314, 20,  brownEight + "Ninjitsu" + endFont, (bool)false, (bool)false);
+            this.AddHtml(260, 485, 2314, 20,  brownEight + "Resisting Spells" + endFont, (bool)false, (bool)false);
+            this.AddHtml(260, 505, 2314, 20,  brownEight + "Spellweaving" + endFont, (bool)false, (bool)false);
+            this.AddHtml(260, 525, 2314, 20,  brownEight + "Spirit Speak" + endFont, (bool)false, (bool)false);			
 	// **************************************************************************************************************** Column 3
             this.AddImage(429, 68, 2086); // ------------------------------------------------------------  Wilderness
             this.AddCheck(430, 85, 2510, 2511, false, (int)SkillName.AnimalLore);
@@ -235,27 +239,27 @@ namespace Server
             this.AddCheck(430, 425, 2510, 2511, false, (int)SkillName.Musicianship);
             this.AddCheck(430, 445, 2510, 2511, false, (int)SkillName.Peacemaking);
             this.AddCheck(430, 465, 2510, 2511, false, (int)SkillName.Provocation);
-            this.AddHtml(450, 65, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Wilderness</BASEFONT>", (bool)false, (bool)false); // -----------------------  Wilderness
-            this.AddHtml(450, 85, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Animal Lore</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(450, 105, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Animal Taming</BASEFONT>", (bool)false, (bool)false);
-            this.AddHtml(450, 125, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Fishing</BASEFONT>", (bool)false, (bool)false);         
-            this.AddHtml(450, 145, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Herding</BASEFONT>", (bool)false, (bool)false);   
-            this.AddHtml(450, 165, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Tracking</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(450, 185, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Veterinary</BASEFONT>", (bool)false, (bool)false);     
-			this.AddHtml(450, 205, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Thieving</BASEFONT>", (bool)false, (bool)false); // -----------------------  Thieving
-            this.AddHtml(450, 225, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Detect Hidden</BASEFONT>", (bool)false, (bool)false);         
-            this.AddHtml(450, 245, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Hiding</BASEFONT>", (bool)false, (bool)false);       
-            this.AddHtml(450, 265, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Lockpicking</BASEFONT>", (bool)false, (bool)false);      
-            this.AddHtml(450, 285, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Poisoning</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(450, 305, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Remove Trap</BASEFONT>", (bool)false, (bool)false);       
-            this.AddHtml(450, 325, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Snooping</BASEFONT>", (bool)false, (bool)false);        
-            this.AddHtml(450, 345, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Stealing</BASEFONT>", (bool)false, (bool)false);   
-            this.AddHtml(450, 365, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Stealth</BASEFONT>", (bool)false, (bool)false); 
-			this.AddHtml(450, 385, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#001052>Bard</BASEFONT>", (bool)false, (bool)false); // -----------------------  Bard
-            this.AddHtml(450, 405, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Discordance</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(450, 425, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Musicianship</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(450, 445, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Peacemaking</BASEFONT>", (bool)false, (bool)false); 
-            this.AddHtml(450, 465, 2314, 20, "<BASEFONT SIZE=8 FACE=1 COLOR=#5a4a31>Provocation</BASEFONT>", (bool)false, (bool)false); 			
+            this.AddHtml(450, 65, 2314, 20,  blueEight + "Wilderness" + endFont, (bool)false, (bool)false); // -----------------------  Wilderness
+            this.AddHtml(450, 85, 2314, 20,  brownEight + "Animal Lore" + endFont, (bool)false, (bool)false);
+            this.AddHtml(450, 105, 2314, 20,  brownEight + "Animal Taming" + endFont, (bool)false, (bool)false);
+            this.AddHtml(450, 125, 2314, 20,  brownEight + "Fishing" + endFont, (bool)false, (bool)false);         
+            this.AddHtml(450, 145, 2314, 20,  brownEight + "Herding" + endFont, (bool)false, (bool)false);   
+            this.AddHtml(450, 165, 2314, 20,  brownEight + "Tracking" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(450, 185, 2314, 20,  brownEight + "Veterinary" + endFont, (bool)false, (bool)false);     
+			this.AddHtml(450, 205, 2314, 20,  blueEight + "Thieving" + endFont, (bool)false, (bool)false); // -----------------------  Thieving
+            this.AddHtml(450, 225, 2314, 20,  brownEight + "Detect Hidden" + endFont, (bool)false, (bool)false);         
+            this.AddHtml(450, 245, 2314, 20,  brownEight + "Hiding" + endFont, (bool)false, (bool)false);       
+            this.AddHtml(450, 265, 2314, 20,  brownEight + "Lockpicking" + endFont, (bool)false, (bool)false);      
+            this.AddHtml(450, 285, 2314, 20,  brownEight + "Poisoning" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(450, 305, 2314, 20,  brownEight + "Remove Trap" + endFont, (bool)false, (bool)false);       
+            this.AddHtml(450, 325, 2314, 20,  brownEight + "Snooping" + endFont, (bool)false, (bool)false);        
+            this.AddHtml(450, 345, 2314, 20,  brownEight + "Stealing" + endFont, (bool)false, (bool)false);   
+            this.AddHtml(450, 365, 2314, 20,  brownEight + "Stealth" + endFont, (bool)false, (bool)false); 
+			this.AddHtml(450, 385, 2314, 20,  blueEight + "Bard" + endFont, (bool)false, (bool)false); // -----------------------  Bard
+            this.AddHtml(450, 405, 2314, 20,  brownEight + "Discordance" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(450, 425, 2314, 20,  brownEight + "Musicianship" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(450, 445, 2314, 20,  brownEight + "Peacemaking" + endFont, (bool)false, (bool)false); 
+            this.AddHtml(450, 465, 2314, 20,  brownEight + "Provocation" + endFont, (bool)false, (bool)false); 			
 	//******************************************************************************************************************
 
 
