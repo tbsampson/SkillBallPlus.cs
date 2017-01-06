@@ -10,8 +10,8 @@ PackItem(new SkillBallPlus());
 
 Edit SkillBallPlus.cs to set default skills/level
 
-			public static int skillsToBoost = 5;  // How many skills to boost
-      public static double boostValue = 85;  // How high to boost each selected skill
+	public static int skillsToBoost = 5;  // How many skills to boost
+	public static double boostValue = 85;  // How high to boost each selected skill
 
 These values can also be set in game by GM
 
