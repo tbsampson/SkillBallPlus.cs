@@ -19,20 +19,6 @@ namespace Server
             public static double boostValue = 85;  // How high to boost each selected skill
 			public string expansion = CurrentExpansion.Expansion.ToString();
 			public string race;
-		
-		private string GetRace(Mobile mob)
-        {
-			if	(mob.Body == 0x190 || mob.Body == 0x191)
-				race = "Human";
-			else if (mob.Body == 0x25D || mob.Body == 0x25E)
-				race = "Elf";
-			else if (mob.Body == 0x29A || mob.Body == 0x29B)
-				race = "Gargoyle";
-			else 
-				race = "Unknown";
-			return race;
-		}
-
 
 			private static Item MakeNewbie( Item item )
         {
