@@ -133,7 +133,7 @@ namespace Server
 			AddHtml(85, 165, 2314, 20, brownEight + "Forensic Evaluation" + endFont, false, false);
 			AddHtml(85, 185, 2314, 20, brownEight + "Item Identification" + endFont, false, false);
 			AddHtml(85, 205, 2314, 20, brownEight + "Taste Identification" + endFont, false, false);
-			AddHtml(85, 225, 2314, 20, blueEight  + "Combat" + endFont, false, false); // --------------------- Combat       
+			AddHtml(85, 225, 2314, 20, blueEight  + "Combat" + endFont, false, false); // --------------------- Combat
 			AddHtml(85, 245, 2314, 20, brownEight + "Anatomy" + endFont, false, false);
 			AddHtml(85, 265, 2314, 20, brownEight + "Archery" + endFont, false, false);
 			AddHtml(85, 285, 2314, 20, brownEight + "Fencing" + endFont, false, false);
@@ -464,7 +464,7 @@ namespace Server
 												pack.DropItem(new BookOfChivalry((ulong)0x3FF));
 												break;
 											case SkillName.Imbuing:
-												pack.DropItem(new RunicHammer(CraftResource.Chert));
+												pack.DropItem(new RunicHammer(CraftResource.Valorite));
 												break;
 											case SkillName.Mysticism:
 												pack.DropItem(new Bone(10));
@@ -497,7 +497,7 @@ namespace Server
 	public class SkillBallPlus : Item
 	{
 		private int m_skillsToBoost = SkillPickGump.skillsToBoost; // Default number of skills to boost
-		private double m_boostValue = SkillPickGump.boostValue; // Default level skills will be boosted to		  
+		private double m_boostValue = SkillPickGump.boostValue; // Default level skills will be boosted to
 		private string m_BaseName = " Skill Booster with Items";
 
 		[CommandProperty(AccessLevel.GameMaster)]
